@@ -6,7 +6,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:fitsSystemWindows="true"
-        tools:context="com.example.android.sunshine.app.MainActivity">
+        tools:context="com.myklory.android.sunshine.app.MainActivity">
 
     <android.support.design.widget.AppBarLayout
             android:layout_height="wrap_content"

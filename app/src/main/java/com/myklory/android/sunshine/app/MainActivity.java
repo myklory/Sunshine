@@ -1,4 +1,4 @@
-package com.example.android.sunshine.app;
+package com.myklory.android.sunshine.app;
 
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;

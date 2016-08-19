@@ -1,6 +1,5 @@
-package com.example.android.sunshine.app;
+package com.myklory.android.sunshine.app;
 
-import android.text.format.Time;
 import android.util.Log;
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -8,7 +7,6 @@ import org.json.JSONObject;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.Date;
 
 /**
  * Created by myklory on 2016/8/18.

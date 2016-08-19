@@ -1,5 +1,6 @@
-package com.example.android.sunshine.app;
+package com.myklory.android.sunshine.app;
 
+import android.content.Intent;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.support.annotation.Nullable;
@@ -7,8 +8,7 @@ import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.*;
-import android.widget.ArrayAdapter;
-import android.widget.ListView;
+import android.widget.*;
 
 import java.io.*;
 import java.net.HttpURLConnection;
@@ -23,6 +23,7 @@ import java.util.Arrays;
  */
 public class MainActivityFragment extends Fragment {
 
+    //listview适配器
     ArrayAdapter<String> foreCastAdapter;
 
     public MainActivityFragment() {
@@ -79,6 +80,28 @@ public class MainActivityFragment extends Fragment {
 
         ListView listView = (ListView)rootView.findViewById(R.id.listview_forecast);
         listView.setAdapter(foreCastAdapter);
+
+        //设置Listview点击事件
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            /**
+             * 鼠标点击事件
+             * @param adapterView 事件点击的parentview
+             * @param view 点击的view，这里是每个listview中的item，即textView
+             * @param i 在adpter中的位置，即foreCastAdapter中的位置
+             * @param l
+             */
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                Toast toast = Toast.makeText(adapterView.getContext(), ((TextView)view).getText(), Toast.LENGTH_SHORT);
+                toast.show();
+                //新建一个Intent，使用新的Activity来初始化他
+                Intent intent = new Intent(getActivity(), DetailActivity.class);
+                //传递数据给DetailActivity
+                intent.putExtra(Intent.EXTRA_INTENT, foreCastAdapter.getItem(i));
+                //启动Activity
+                startActivity(intent);
+            }
+        });
         return rootView;
     }
 
@@ -95,7 +118,7 @@ public class MainActivityFragment extends Fragment {
         protected String[] doInBackground(String... strings) {
             String foreCastJson = getForeCast(strings[0]);
             String[] weathers = WeatherDataParser.getWeatherDataFromJson(foreCastJson);
-            Log.i("getForeCast", weathers.toString());
+            Log.d("getForeCast", weathers.toString());
             //parseWeather(foreCastJson);
             return weathers;
         }
@@ -113,7 +136,7 @@ public class MainActivityFragment extends Fragment {
 
         private void parseWeather(String foreCastJson){
             double maxTemp = WeatherDataParser.getMaxTemperatureForDay(foreCastJson, 0);
-            Log.i("parseWeather", Double.toString(maxTemp));
+            Log.d("parseWeather", Double.toString(maxTemp));
         }
 
         private String getForeCast(String city) {
